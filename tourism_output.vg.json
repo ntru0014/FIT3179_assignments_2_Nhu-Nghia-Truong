@@ -1,0 +1,132 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "hconcat": [
+    { 
+      "title": "Tourism output by industries (2016-2020)",
+      "width": 420,
+      "height": 300,
+      "layer":[
+      {      
+      "data": { "url": "data/tourism_output_by_industry.csv" },
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "title": "Year",
+          "axis": { "labelAngle": 0 }
+        },
+        "y": {
+          "aggregate": "sum",
+          "field": "Value",
+          "type": "quantitative",
+          "title": "Output (millions $ AUD)",
+          "axis": { "format": ".2s" }
+        },
+        "color": {
+          "field": "industries",
+          "type": "nominal",
+          "title": "Industry",
+          "legend": {
+            "orient": "bottom",
+            "columns": 3,
+            "titleFontSize": 12,
+            "labelFontSize": 11,
+            "symbolSize": 150,
+            "symbolType": "square",
+            "padding": 10
+          }
+        },
+        "tooltip": [
+          { "field": "industries", "type": "nominal", "title": "Industry" },
+          { "field": "Year", "type": "ordinal" },
+          {
+            "aggregate": "sum",
+            "field": "Value",
+            "type": "quantitative",
+            "format": ",~",
+            "title": "$ million"
+          }
+        ]
+      }
+      },    
+      {
+      "data": { "values":[
+        {
+          "year":"2020",
+          "y":100000,
+          "anno_text":"2020 total output: 59,076 millions"
+        }
+      ] 
+      },
+        "mark": { "type": "text", "dx": -40, "dy": -6, "fontSize": 10,"fontWeight": "bold"},
+        "encoding": {
+        "text": { "field": "anno_text" },
+        "x": { "field": "year","type":"ordinal" },
+        "y": { "field": "y","type":"quantitative" }
+      } 
+      }
+      ]
+    },
+    {
+      "title": "Tourism gross value added (GVA) by industries (2016-2020)",
+
+      "width": 420,
+      "height": 300,
+      "layer":[
+        { 
+        "data": { "url": "data/tourism_gva_by_industry.csv" },
+        "mark": "bar",
+        "encoding": {
+          "x": {
+            "field": "Year",
+            "type": "ordinal",
+            "title": "Year",
+            "axis": { "labelAngle": 0 }
+          },
+          "y": {
+            "aggregate": "sum",
+            "field": "Value",
+            "type": "quantitative",
+            "title": "GVA (millions $ AUD)",
+            "axis": { "format": ".2s" }
+          },
+          "color": {
+            "field": "industries",
+            "type": "nominal",
+            "title": "Industry"
+          },
+          "tooltip": [
+            { "field": "industries", "type": "nominal", "title": "Industry" },
+            { "field": "Year", "type": "ordinal" },
+            {
+              "aggregate": "sum",
+              "field": "Value",
+              "type": "quantitative",
+              "format": ",~",
+              "title": "$ million"
+            }
+          ]
+        }
+        },
+        {
+        "data": { "values":[
+          {
+            "year":"2020",
+            "y":45000,
+            "anno_text":"2020 total GVA: 26,174 millions"
+          }
+        ] 
+        },
+          "mark": { "type": "text", "dx": -40, "dy": -10, "fontSize": 10,"fontWeight": "bold" },
+          "encoding": {
+          "text": { "field": "anno_text" },
+          "x": { "field": "year","type":"ordinal" },
+          "y": { "field": "y","type":"quantitative" }
+        } 
+        }
+      ]
+    }
+  ],
+  "resolve": { "scale": { "color": "shared" }, "legend": { "color": "shared" } }
+}

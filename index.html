@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Tourism Maps of Australia — FIT3179</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Loading Vega, Vega-Lite and Vega-Embed -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 440;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    background-color: #f8fafc;
+    color: #222;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    text-align: center;
+    background-image: url("data/airport2.png");
+    background-color: #73A5C6;
+    color: white;
+    padding: 20px 10px;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 1.8em;
+  }
+
+  header p {
+    margin-top: 6px;
+    font-size: 1em;
+  }
+
+  main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 15px;
+  }
+
+  section {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    margin-bottom: 40px;
+    padding: 20px;
+  }
+
+  section h2 {
+    color: #1e3a8a;
+    margin-top: 0;
+  }
+
+  section p{
+    color: black;
+    margin : 2px
+
+  }
+
+  .vis {
+  margin-top: 10px;
+  width: 100%;
+  height: 100%
+  }
+
+  .tooltip-box {
+    background-color: #e2e8f0;
+    color: #111;                 
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 5px;
+    border-left: 10px solid #2563eb; 
+  }
+  .insight-box {
+    background-color: #FFD8B2;
+    color: #111;                 
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left: 10px solid 	#db6a00; 
+  }
+  .bold-text {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+  .underline-text {
+  text-decoration: underline;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    background: #f1f5f9;
+  }
+  
+  a {
+    color: blue;
+  }
+  .green-box {
+    background-color: #F3FEED;
+    color: #111;                 
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border-left: 10px solid 	#77C04C; 
+  }
+</style>
+
+</head>
+
+<body>
+  <header>
+    <h1>Tourism in Australia before Covid 19</h1>
+    <p>FIT3179 Assignment 2 - Nhu Nghia Truong
+    </p>
+  </header>
+
+  <main>
+      <div class="green-box">
+      <strong>Note:</strong>  
+      
+      </div>
+    <section>
+      <h2>Top countries visited Australia (2014 - 2020)</h2>
+      <p>
+        This <strong>world choropleth map</strong> shows the number of visitors arriving in Australia in the <span class="bold-text">month January, 2014 to 2020.</span>
+      </p>
+
+      <div class="tooltip-box">
+      <p>Data used is total people arrived in Australia in short-term by all purpose sorted by countries each years</p>
+      <p><strong>Interaction:</strong>  
+      You may interact by <span class="bold-text">sliding</span> between the years to view diffent periods.
+      <strong>Hover over</strong> data to gain numbers.</p>
+      </div>
+      
+
+
+      <div id="vis-world" class="vis"></div>
+
+      <div class="insight-box">
+      <strong>Insights:</strong>  
+      <strong>China and New Zealand</strong> were top countries with the highest visitors to Australia through out <strong>data periods.</strong>
+      <p><span class="bold-text">In January 2019,</span> <strong>China</strong> have <strong>119,200</strong> visitor compared to <strong>New Zealand</strong> with <strong>116,700</strong> visitors.</p>
+      <p><span class="bold-text">In January 2020,</span><strong>China</strong> number reduce to <strong>112,700</strong> visitor, while <strong>New Zealand</strong> increase to <strong>121,300</strong> visitors. </p>
+      <p><strong>Covid 19</strong> might affect traveling and tourism but visitors came to Australia trend was <strong>varied depend on countries.</strong></p>
+      </div>
+      <p>
+      <p>
+        Data available in <strong>table 3</strong> in source: 
+      </p>
+      <a href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/jul-2025">Overseas Arrivals and Departures, Australia</a>
+    </section>
+
+    <section>
+    <h2>Tourist accommodations in Victoria, Queensland, South Australia, New South Wales (2013-2015).</h2>
+    <p>
+      These <strong>choropleth maps</strong> show the number of accommodations (every type) across tourism regions in Victoria, Australia.
+      Note that the scale of these maps may not be accurate for easier interaction. 
+    </p>
+    <div class="tooltip-box">
+    <p>Data used is total accomodation for short and long rent in all types in top 4 leading states of Australia in each region</p>      
+    <strong>Interaction:</strong>  
+    You may switch between <strong>years (2013-2015)</strong> inside the map.
+    <strong>Hover over</strong> data to gain numbers.
+    </div>
+
+       <div class="pure-g">
+            <div class="pure-u-1-1">
+                <div id="vis-accommodation" class="vis"></div>
+            </div>
+        </div>
+    <div class="insight-box">
+    <p><strong>Insights: Overall,</strong> accomodations in four leading tourism states increase over <strong> the period 2013 to 2015.</strong></p>
+    <P><span class="bold-text">In 2015</span></P>
+    <p><strong>In Victoria</strong>, Melbourne had total <strong>31,926</strong> rooms for rental.</p>
+    <p><strong>In Queensland</strong>, Brisbane had total <strong>15,862</strong> rooms for rental.</p>
+    <p><strong>In South Australia</strong>, Adelaide had total <strong>7,986</strong> rooms for rental.</p>
+    <p><strong>In New South Wales</strong>, Sydney,which had top number of accommodations, had total <strong>36,712</strong> rooms.</p>
+    <p>The affect of <strong>Covid 19</strong> was not shown in this visualisation, however it is clear that <strong>accomodation</strong> in Australia have a clear <strong>increasing trend.</strong></p>  
+    </div>  
+    <p>
+        Data available in source: 
+      </p>
+      <a href="https://data.aurin.org.au/dataset/tra-tra-accomodation-rooms-supply-2012-2015-na">Tourism Research Australia - Accommodation Rooms Supply (Tourism Regions) 2012-2015</a>
+    </section>
+
+    <section>
+      <h2>Short-term visitor arrivals in Australia from 2014 to 2020</h2>
+      <p> <strong>Stack line chart and line graph</strong> display short-term tourist arrivals Australia trend sorted by lengths of stay and purposes. 
+      </p>
+      <p>
+        
+      </p>
+      <div class="tooltip-box">
+      <strong>Interaction:</strong>  
+      Use the selector for line chart to choose visitor purposes. <strong>Hover over</strong> data to gain numbers.
+      </div>
+
+      <div id="vis-visitor" class="vis"></div>
+      
+      <div class="insight-box">
+      <div class="bold-text">Graph one: Visitor in Australia by Length of Stay (2014 - 2020)</div>
+      <p>Visitor numbers <strong>rose steadily from 2014 to 2019</strong>, showing strong tourism growth before COVID-19.</p>
+      <p>The <strong>most common stay</strong> was between <strong>2 weeks</strong> and <strong>3 months</strong>, typical of leisure and long-haul travellers.</p>
+      <p><strong>All categories dropped sharply in 2020</strong>, from around 9 millions to 2 millions.
+      <p>~</p>
+      <div class="bold-text">Graph two: Visitor Intentions of Stay (2014 - 2020)</div>
+      <p>Total <strong>holiday visitors increased by around half from 2014 to 2019</strong>, indicating high demand growth.</p>
+      <p><strong>2019 marked the peak year</strong> for arrivals, with over 4.5 million visitors to Australia.</p>
+      <p><strong>Visitor numbers plunged to only ~789,000 in 2020</strong>, the lowest level recorded in decades.</p>
+      </div>
+
+      <div class="tooltip-box">
+      <strong>Impact of COVID-19</strong>
+      <p><strong>COVID-19 caused an sharp decrease in international tourism</strong>, cutting arrivals by more than 80%.</p>
+      <p>The data shows how <strong>heavily reliant Australia was on overseas holidaymakers</strong> and highlights the <strong>sector's vulnerability to global travel restrictions</strong>.</p>
+      </div>
+      Data available in <strong>table 11</strong> in source: 
+      </p>
+      
+      <a href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/jul-2025">Overseas Arrivals and Departures, Australia</a>
+      
+    </section>
+
+      <section>
+      <h2>Tourism Satellite Account</h2>
+      <p>These graphs display the output and gross value added to Australian GDP by tourism-related industries in millions (AUD). Data shows year 2016 to 2020. 
+      </p>
+      <div class="tooltip-box">
+        <p>Output is the total profit that were recored for each industry, each year, while Gross Value Added (GVA) is the revenue that added to Australia GDP each year.</p>
+      <strong>Interaction:</strong>  
+      Hover over data to gain more insight of each industries. 
+      </div>
+      <div id="vis-tourismoutput" class="vis"></div>
+
+      <div class="insight-box">
+      <div class="bold-text">Graph 1: Tourism Output by Industries (2016 - 2020)</div>
+      <p><strong>Tourism output peaked in 2018</strong> at around <strong>100 billion AUD</strong>, showing strong pre-COVID growth.</p>
+      <p><strong>Accommodation, food services, and transport</strong> were the largest contributors throughout the period.</p>
+      <p><strong>Output dropped by nearly half in 2020 (roughly 59 billion AUD, see graph)</strong> as international and domestic travel halted.</p>
+      <p>~</p>
+      <div class="bold-text">Graph 2: Tourism Gross Value Added (GVA) by Industries (2016 - 2020)</div>
+      <p><strong>GVA followed a similar trend</strong>, reaching a high in <strong>2018</strong> before a sharp fall in <strong>2020</strong>.</p>
+      <p><strong>Accommodation and restaurants</strong> remained core value drivers, while education and transport also played significant roles.</p>
+      <p><strong>2020 GVA declined to about 26 billion AUD</strong>, reflecting massive lossed due to COVID-19 restrictions.</p>
+
+      </div>
+      <div class="tooltip-box">
+      <strong>Impact of COVID-19</strong>
+      <p><strong>COVID-19 caused the steepest contraction in tourism's economic contribution</strong> across both output and GVA.</p>
+      <p>The downturn highlights the <strong>industry's dependence on travel and hospitality activities</strong>
+      </div>
+      <p>
+        Data available in <strong>table 03</strong> in source:
+      </p>
+      <a href="https://www.abs.gov.au/statistics/economy/national-accounts/tourism-satellite-account/latest-release">Tourism Satellite Account</a>
+      <p>
+        Futher terminology explain in:
+      </p>
+      <a href="https://www.abs.gov.au/methodologies/tourism-satellite-account-methodology/2023-24#:~:text=Tourism%20gross%20value%20added%20(GVA,in%20producing%20these%20tourism%20products.">Tourism Satellite Account methodology</a>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Website was builded by Nhu Nghia Truong · ID 33560188 · TA Shaoluan Ruan · Unit FIT3179</p>
+    <p>Date of completion: 21/10/2025 · View github repository at</p> 
+    <p>Built with <a href="https://vega.github.io/vega-lite/" target="_blank">Vega-Lite</a> ·
+    Data sources: TRA & ABS datasets.</p>
+  </footer>
+
+  <script>
+    // Define the map spec files
+    const worldSpec = "worldarrival.vg.json";
+    const accommodationSpec = "accomodation.vg.json";
+    const visitorSpec = "visitortoaustralia.vg.json";
+    const tourismoutputSpec = "tourism_output.vg.json";
+
+    const options = { actions: false };
+
+    // Embed the world map
+    vegaEmbed("#vis-world", worldSpec, options)
+      .catch(err => console.error("Error loading Victoria map:", err));
+
+    // Embed the Australia map
+    vegaEmbed("#vis-accommodation", accommodationSpec, options)
+      .catch(err => console.error("Error loading Australia map:", err));
+    
+      // Embed the world map
+    vegaEmbed("#vis-visitor", visitorSpec, options)
+      .catch(err => console.error("Error loading Victoria map:", err));
+
+    // Embed the Australia map
+    vegaEmbed("#vis-tourismoutput", tourismoutputSpec, options)
+      .catch(err => console.error("Error loading Australia map:", err));
+    
+  </script>
+</body>
+</html>

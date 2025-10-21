@@ -1,0 +1,163 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": { "url": "data/visitorintensionofstay.csv" },
+
+  "params": [
+    {
+      "name": "MetricSel",
+      "value": "holiday",
+      "bind": {
+        "input": "select",
+        "options": [
+          "convention or conference",
+          "business",
+          "visiting friends or relatives",
+          "holiday",
+          "employment",
+          "education"
+        ],
+        "name": "Metric: "
+      }
+    }
+  ],
+
+  "hconcat": [
+    {
+      "title": "Visitor in Australia by length of stay (2014-2020)",
+      "width": 425  ,
+      "height": 250,
+      "transform": [
+        {
+          "fold": [
+            "under 1 week",
+            "1 and under 2 weeks",
+            "2 weeks and under 1 month",
+            "1 and under 2 months",
+            "2 and under 3 months",
+            "3 and under 6 months",
+            "6 and under 12 months"
+          ],
+          "as": ["bucket", "value"]
+        }
+      ],
+      "mark": { "type": "area", "interpolate": "linear", "opacity": 0.9 },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "axis": { "title": "Year", "labelAngle": 0, "tickCount": 7, "grid": false }
+        },
+        "y": {
+          "aggregate": "sum",
+          "field": "value",
+          "type": "quantitative",
+          "title": "Number of people",
+          "stack": "zero",
+          "axis": { "format": ".2s" }
+        },
+        "color": {
+          "field": "bucket",
+          "type": "nominal",
+          "title": "Length of Stay",
+          "legend": {
+            "orient": "bottom",
+            "columns": 3,
+            "titleFontSize": 12,
+            "labelFontSize": 11,
+            "symbolSize": 150,
+            "symbolType": "square",
+            "padding": 10
+          },
+          "scale": {
+            "domain": [
+              "under 1 week",
+              "1 and under 2 weeks",
+              "2 weeks and under 1 month",
+              "1 and under 2 months",
+              "2 and under 3 months",
+              "3 and under 6 months",
+              "6 and under 12 months"
+            ],
+            "range": ["#7fc97f", "#FE8D01", "#3288bd", "#8856a7", "#e34a33", "#ff7f00","#808080"]
+          }
+        },
+        "tooltip": [
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          { "field": "bucket", "type": "nominal", "title": "Duration" },
+          { "aggregate": "sum", "field": "value", "type": "quantitative", "title": "Visitors", "format": ",~" }
+        ]
+      }
+    },
+
+{
+  "title": "Visitor intentions of stay in Australia (2014-2020)",
+  "width": 425,
+  "height": 250,
+  "layer": [
+    {
+      "transform": [{ "calculate": "datum[MetricSel]", "as": "value" }],
+      "mark": { "type": "line", "point": true },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "axis": { "title": "Year", "labelAngle": 0, "tickCount": 7, "grid": false }
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative",
+          "axis": { "title": null, "format": ".2s" }
+        },
+        "color": { "value": "#2563eb" },
+        "tooltip": [
+          { "field": "year", "type": "quantitative", "title": "Year", "format": "d" },
+          { "field": "value", "type": "quantitative", "title": "People", "format": ",~" }
+        ]
+      }
+    },
+    {
+      "transform": [
+        { "calculate": "datum[MetricSel]", "as": "value" },
+        { "filter": "datum.year == 2020" }
+      ],
+      "mark": { "type": "rule", "strokeDash": [4, 4], "color": "#777" },
+      "encoding": { "x": { "field": "year", "type": "ordinal" } }
+    },
+    {
+      "transform": [
+        { "calculate": "datum[MetricSel]", "as": "value" },
+        { "filter": "datum.year == 2020" }
+      ],
+      "mark": { "type": "point", "size": 120, "filled": true, "color": "#2563eb" },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "value", "type": "quantitative" }
+      }
+    },
+    {
+      "transform": [
+        { "calculate": "datum[MetricSel]", "as": "value" },
+        { "filter": "datum.year == 2020" },
+        { "calculate": "'In year 2020: number of visitors ' + format(datum.value, ',~')", "as": "label" }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "bottom",
+        "dx": -50,
+        "dy": -6,
+        "fontWeight": "bold",
+        "fontSize": 12,
+        "color": "#0f172a"
+      },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "value", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    }
+  ]
+}
+
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Accommodations by tourism region (AU States, 2013-2015)",
+  "background": "white",
+  
+  "params": [
+    {
+      "name": "YearSel",
+      "value": 2015,
+      "bind": {
+        "input": "range",
+        "min": 2013,
+        "max": 2015,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+
+  "vconcat": [
+    
+    {
+      "hconcat": [
+        {
+          "title": "Victoria",
+          "width": 425,
+          "height": 300,
+          "projection": { "type": "equirectangular", "rotate": [20, 0, 0], "center": [0, -50]},
+          "data": { "url": "data/vic_rooms_2012_2015.json", "format": { "type": "json", "property": "features" } },
+          "transform": [
+            { "calculate": "datum.properties.tourism_region", "as": "region" },
+            {
+              "calculate":
+                "YearSel == 2013 ? datum.properties.accommodation_rooms_201213 : (YearSel == 2014 ? datum.properties.accommodation_rooms_201314 : datum.properties.accommodation_rooms_201415)",
+              "as": "rooms_year"
+            }
+          ],
+          "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
+          "encoding": {
+            "color": { "field": "rooms_year", "type": "quantitative", "title": "Rooms", 
+            "scale": {
+            "type": "threshold",
+            "domain": [100, 1000, 5000, 10000],
+            "range": ["#dbe9f6", "#9ecae1", "#6baed6", "#3182bd", "#08519c"]
+            }
+            },
+            "tooltip": [
+              { "field": "region", "type": "nominal", "title": "Region" },
+              { "field": "rooms_year", "type": "quantitative", "title": "Rooms" }
+            ]
+          }
+        },
+
+        {
+          "title": "Queensland",
+          "width": 425,
+          "height": 300,
+          "projection": { "type": "equirectangular"},
+          "data": { "url": "data/qsl_rooms_2012_2015.json", "format": { "type": "json", "property": "features" } },
+          "transform": [
+            { "calculate": "datum.properties.tourism_region", "as": "region" },
+            {
+              "calculate":
+                "YearSel == 2013 ? datum.properties.accommodation_rooms_201213 : (YearSel == 2014 ? datum.properties.accommodation_rooms_201314 : datum.properties.accommodation_rooms_201415)",
+              "as": "rooms_year"
+            }
+          ],
+          "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
+          "encoding": {
+            "color": { "field": "rooms_year", "type": "quantitative", "title": "Rooms", 
+            "scale": {
+            "type": "threshold",
+            "domain": [100, 1000, 5000, 10000],
+            "range": ["#dbe9f6", "#9ecae1", "#6baed6", "#3182bd", "#08519c"]
+            }
+            },
+            "tooltip": [
+              { "field": "region", "type": "nominal", "title": "Region" },
+              { "field": "rooms_year", "type": "quantitative", "title": "Rooms" }
+            ]
+          }
+        }
+      ]
+    },
+
+    {
+      "hconcat": [
+        {
+          "title": "South Australia",
+          "width": 425,
+          "height": 225,
+          "projection": { "type": "equirectangular", "rotate": [20, 0, 0], "center": [0, -10] },
+          "data": { "url": "data/sa_rooms_2012_2015.json", "format": { "type": "json", "property": "features" } },
+          "transform": [
+            { "calculate": "datum.properties.tourism_region", "as": "region" },
+            {
+              "calculate":
+                "YearSel == 2013 ? datum.properties.accommodation_rooms_201213 : (YearSel == 2014 ? datum.properties.accommodation_rooms_201314 : datum.properties.accommodation_rooms_201415)",
+              "as": "rooms_year"
+            }
+          ],
+          "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
+          "encoding": {
+            "color": { "field": "rooms_year", "type": "quantitative", "title": "Rooms", 
+            "scale": {
+            "type": "threshold",
+            "domain": [100, 1000, 5000, 10000],
+            "range": ["#dbe9f6", "#9ecae1", "#6baed6", "#3182bd", "#08519c"]
+            }
+            },
+            "tooltip": [
+              { "field": "region", "type": "nominal", "title": "Region" },
+              { "field": "rooms_year", "type": "quantitative", "title": "Rooms" }
+            ]
+          }
+        },
+
+        {
+          "title": "New South Wales",
+          "width": 425,
+          "height": 225,
+          "projection": { "type": "equirectangular"},
+          "data": { "url": "data/nsw_rooms_2012_2015.json", "format": { "type": "json", "property": "features" } },
+          "transform": [
+            { "calculate": "datum.properties.tourism_region", "as": "region" },
+            {
+              "calculate":
+                "YearSel == 2013 ? datum.properties.accommodation_rooms_201213 : (YearSel == 2014 ? datum.properties.accommodation_rooms_201314 : datum.properties.accommodation_rooms_201415)",
+              "as": "rooms_year"
+            }
+          ],
+          "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
+          "encoding": {
+            "color": { "field": "rooms_year", "type": "quantitative", "title": "Rooms", 
+            "scale": {
+            "type": "threshold",
+            "domain": [100, 1000, 5000, 10000],
+            "range": ["#dbe9f6", "#9ecae1", "#6baed6", "#3182bd", "#08519c"]
+            },
+            "legend":null   
+            },
+            "tooltip": [
+              { "field": "region", "type": "nominal", "title": "Region" },
+              { "field": "rooms_year", "type": "quantitative", "title": "Rooms" }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+
+  "resolve": { "scale": { "color": "independent" } }
+}
